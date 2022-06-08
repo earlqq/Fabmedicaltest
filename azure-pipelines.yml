@@ -38,11 +38,11 @@ stages:
         tags: |
           $(tag)
           latest
-    - task: PublishPipelineArtifact@1
-      displayName: Publish to artifacts
-      inputs:
-        artifactName: 'manifests'
-        path: 'manifests'
+    #- task: PublishPipelineArtifact@1
+    #  displayName: Publish to artifacts
+    #  inputs:
+    #    artifactName: 'manifests'
+    #    path: 'manifests'
 
 - stage: Deploy
   displayName: Deploy stage
@@ -57,10 +57,10 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: DownloadPipelineArtifact@2
-            inputs:
-              artifactName: 'manifests'
-              downloadPath: '$(System.ArtifactsDirectory)/manifests'
+          #- task: DownloadPipelineArtifact@2
+          #  inputs:
+          #    artifactName: 'manifests'
+          #    downloadPath: '$(System.ArtifactsDirectory)/manifests'
 
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret
@@ -76,8 +76,8 @@ stages:
               action: deploy
               namespace: $(k8sNamespace)
               manifests: |
-                $(System.ArtifactsDirectory)/manifests/api.deployment.yml
-                $(System.ArtifactsDirectory)/manifests/api.service.yml
+                api.deployment.yml
+                api.service.yml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
