@@ -15,6 +15,7 @@ variables:
   tag: '$(Build.BuildNumber)'
   vmImageName: 'ubuntu-latest'
   k8sNamespace: 'ingress-demo'
+  imagePullSecret: 'acraccess'
 
 stages:
 - stage: Build
