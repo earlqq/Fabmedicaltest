@@ -14,7 +14,7 @@ variables:
   dockerfilePath: 'content-api/Dockerfile'
   tag: '$(Build.BuildNumber)'
   vmImageName: 'ubuntu-latest'
-  k8sNamespace: 'fabmedical-eaq'
+  k8sNamespace: 'ingress-demo'
 
 stages:
 - stage: Build
