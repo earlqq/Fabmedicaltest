@@ -14,6 +14,7 @@ variables:
   dockerfilePath: 'content-api/Dockerfile'
   tag: '$(Build.BuildNumber)'
   vmImageName: 'ubuntu-latest'
+  namespace: 'ingress-demo'
 
 stages:
 - stage: Build
@@ -51,7 +52,7 @@ stages:
     displayName: Deploy job
     pool:
       vmImage: $(vmImageName)
-    # environment: 'myenv.aksnamespace' #customize with your environment
+    environment: 'myenv.ingress-demo' #customize with your environment
     strategy:
       runOnce:
         deploy:
@@ -75,8 +76,8 @@ stages:
               action: deploy
               namespace: $(k8sNamespace)
               manifests: |
-                $(System.ArtifactsDirectory)/manifests/api.deployment.yml
-                $(System.ArtifactsDirectory)/manifests/api.service.yml
+                api.deployment.yml
+                api.service.yml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
